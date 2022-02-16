@@ -2293,18 +2293,6 @@
  },
  {
    "Category": "Simple Type",
-   "Name": "size_t",
-   "Header": "stddef.h",
-   "C11 (ISO)": "Yes",
-   "POSIX": "Yes",
-   "Linux": "Yes",
-   "Windows": "Yes",
-   "Mac OSX": "Yes",
-   "VxWorks": "Yes",
-   "Description": "Defined as unsigned int on VxWorks"
- },
- {
-   "Category": "Simple Type",
    "Name": "suseconds_t",
    "Header": "sys/types.h",
    "C11 (ISO)": "No",
