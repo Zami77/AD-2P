@@ -20,16 +20,27 @@ def parse_nodes_from_file(filename: str):
     get_all_nodes(translation_unit.cursor, allNodes)
     return allNodes
 
+def AD2P_scan_file(filename: str):
+    cur_file_nodes = parse_nodes_from_file(filename)
+    for node in cur_file_nodes:
+        print(node)
+
+def handle_file_or_dir(input_file_or_dir: str):
+    if os.path.isdir(input_file_or_dir):
+        for root, _dirs, files in os.walk(input_file_or_dir):
+            for file in files:
+                handle_file_or_dir(root + '/' + file)
+
+    elif os.path.isfile(input_file_or_dir):
+        AD2P_scan_file(input_file_or_dir)
+
 def main():
     if len(sys.argv) < 2:
         print('invalid number of arguments.\nUsage:\tpython ', os.path.basename(__file__), ' filename')
         return -1
 
-    # TODO: Check if directory, then recursively search
-    filename = sys.argv[1]
-    allNodes = parse_nodes_from_file(filename)
-    for node in allNodes:
-        print(node)
+    input_file_or_dir = sys.argv[1]
+    handle_file_or_dir(input_file_or_dir)
 
 if __name__ == '__main__':
     main()
