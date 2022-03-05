@@ -3,7 +3,10 @@ import os
 from typing import List
 from AD2PNode import AD2PNode, AD2PNodeLocation
 from Vulnerabilities2038 import vulnerabilities_2038_map as vuln2038_map
+from AD2PHelper import is_valid_file
 from clang.cindex import Index, Cursor
+
+scanned_files: List[str] = []
 
 def get_all_nodes(node: Cursor, nodesList = []):
     [get_all_nodes(c, nodesList)
@@ -24,6 +27,7 @@ def AD2P_scan_file(filename: str):
     cur_file_nodes = parse_nodes_from_file(filename)
     for node in cur_file_nodes:
         print(node)
+    scanned_files.append(filename)
 
 def handle_file_or_dir(input_file_or_dir: str):
     if os.path.isdir(input_file_or_dir):
@@ -31,7 +35,7 @@ def handle_file_or_dir(input_file_or_dir: str):
             for file in files:
                 handle_file_or_dir(root + '/' + file)
 
-    elif os.path.isfile(input_file_or_dir):
+    elif is_valid_file(input_file_or_dir):
         AD2P_scan_file(input_file_or_dir)
 
 def main():
@@ -41,6 +45,7 @@ def main():
 
     input_file_or_dir = sys.argv[1]
     handle_file_or_dir(input_file_or_dir)
+    print(scanned_files)
 
 if __name__ == '__main__':
     main()
