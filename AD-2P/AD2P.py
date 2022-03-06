@@ -59,8 +59,7 @@ def main(input_file_or_dir):
     clean_up()
     handle_file_or_dir(input_file_or_dir)
     end_scan_printout()
-    scan_output = AD2PScanOutput(scanned_files, potential_vulns)
-    return scan_output
+    return AD2PScanOutput(scanned_files, potential_vulns)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
