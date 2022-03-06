@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from fastapi import FastAPI, UploadFile
 from AD2PHelper import valid_files
 from AD2P import main as AD2PMain
@@ -7,6 +8,10 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"AD2P Root"}
+
+@app.get("/Health")
+async def health():
+    return HTTPStatus.OK
 
 @app.get("/ValidFiles")
 async def get_valid_files():
