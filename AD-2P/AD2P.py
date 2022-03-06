@@ -3,10 +3,12 @@ import os
 from typing import List
 from AD2PNode import AD2PNode, AD2PNodeLocation
 from Vulnerabilities2038 import vulnerabilities_2038_map as vuln2038_map
-from AD2PHelper import is_valid_file
+from AD2PHelper import is_valid_file, valid_files
+from AD2PScanOutput import AD2PScanOutput
 from clang.cindex import Index, Cursor
 
 scanned_files: List[str] = []
+potential_vulns: List[AD2PNode] = []
 
 def get_all_nodes(node: Cursor, nodesList = []):
     [get_all_nodes(c, nodesList)
@@ -26,7 +28,7 @@ def parse_nodes_from_file(filename: str):
 def AD2P_scan_file(filename: str):
     cur_file_nodes = parse_nodes_from_file(filename)
     for node in cur_file_nodes:
-        print(node)
+        potential_vulns.append(node)
     scanned_files.append(filename)
 
 def handle_file_or_dir(input_file_or_dir: str):
@@ -38,14 +40,25 @@ def handle_file_or_dir(input_file_or_dir: str):
     elif is_valid_file(input_file_or_dir):
         AD2P_scan_file(input_file_or_dir)
 
-def main():
-    if len(sys.argv) < 2:
-        print('invalid number of arguments.\nUsage:\tpython ', os.path.basename(__file__), ' filename')
-        return -1
+def end_scan_printout():
+    for vuln in potential_vulns:
+        print(vuln)
+        
+    if not scanned_files:
+        print("No files were scanned...")
+        print("Please ensure you submitted a valid file type.")
+        print(f"Valid File Types:{valid_files}")
+    else:
+        print(scanned_files)
 
-    input_file_or_dir = sys.argv[1]
+def main(input_file_or_dir):
     handle_file_or_dir(input_file_or_dir)
-    print(scanned_files)
+    end_scan_printout()
+    return AD2PScanOutput(scanned_files, potential_vulns)
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) < 2:
+        print('invalid number of arguments.\nUsage:\tpython ', os.path.basename(__file__), ' filename.extension')
+        exit()
+
+    main(sys.argv[1])
