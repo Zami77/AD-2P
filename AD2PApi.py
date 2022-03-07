@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from fastapi import FastAPI, UploadFile
-from AD2PHelper import valid_files
+from AD2PHelper import get_file_name, valid_files
 from AD2P import main as AD2PMain
 
 app = FastAPI()
@@ -31,5 +31,26 @@ async def ad2p_scan(file: UploadFile):
     
     return {
         "filename": file.filename,
+        "scan_result": scan_result
+    }
+
+
+# Request Body should be in the format
+# {
+#     filename: "filename.extenstion",
+#     file_content: "File content"
+# }
+@app.post("/AD2PScanGodot")
+async def ad2p_scan_godot(req_body):
+    print(req_body)
+    filename = get_file_name(req_body.filename)
+    file_path = f"scanned_files/{filename}"
+    scan_file = open(file_path, "wb+")
+    scan_file.write(req_body.file_content)
+    scan_file.close()
+    scan_result = AD2PMain(file_path)
+
+    return {
+        "filename": file_path,
         "scan_result": scan_result
     }
