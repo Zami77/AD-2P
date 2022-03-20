@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from fastapi import FastAPI, UploadFile
-from AD2PHelper import valid_files
+from AD2PHelper import valid_files, get_filename
 from AD2P import main as AD2PMain
 
 app = FastAPI()
@@ -25,7 +25,7 @@ def write_file_to_scanned_files(file: UploadFile, file_path: str):
 
 @app.post("/AD2PScan")
 async def ad2p_scan(file: UploadFile):
-    file_path = f"scanned_files/{file.filename}"
+    file_path = f"scanned_files/{get_filename(file.filename)}"
     write_file_to_scanned_files(file, file_path)
     scan_result = AD2PMain(file_path)
     
