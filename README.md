@@ -21,6 +21,13 @@ Developed in Godot, the source code is in the repo below. Currently working on a
 
 [AD-2P UI Repository](https://github.com/Zami77/AD2P_UI)
 
+### Backend API
+Backend is created with FastAPI and hosted on an Azure app service. Anyone is free to use the API.
+
+The base endpoint is ```https://ad2p.azurewebsites.net/```
+
+Swagger documentation can be found at ```https://ad2p.azurewebsites.net/docs```
+
 ## External Repositories
 [AD-2P Web Repository](https://github.com/Zami77/AD2P_Web)
 
