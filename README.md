@@ -18,10 +18,12 @@ If you clone this repo, you can use AD-2P as a CLI tool. Simply call AD-2P with 
 
 ### Desktop Application
 Developed in Godot, the source code is in the repo below. Currently working on a way to host .exe files, but you can clone the repo and export the project in Godot.
+
 [AD-2P UI Repository](https://github.com/Zami77/AD2P_UI)
 
 ## External Repositories
 [AD-2P Web Repository](https://github.com/Zami77/AD2P_Web)
+
 [AD-2P UI Repository](https://github.com/Zami77/AD2P_UI)
 
 ## References
