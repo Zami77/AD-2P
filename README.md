@@ -17,7 +17,7 @@ If you clone this repo, you can use AD-2P as a CLI tool. Simply call AD-2P with 
 ```python AD2P.py sample.cpp```
 
 ### Desktop Application
-Developed in Godot, the source code is in the repo below. Currently working on a way to host .exe files, but you can clone the repo and export the project in Godot.
+Developed in Godot, the source code is in the repo below. Please go to [Releases](https://github.com/Zami77/AD2P_UI/releases) to download the most recent executable.
 
 [AD-2P UI Repository](https://github.com/Zami77/AD2P_UI)
 
